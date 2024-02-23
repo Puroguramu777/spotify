@@ -11,7 +11,7 @@
         "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
-        "doctrine/orm": "^3.0",
+        "doctrine/orm": "^2.18",
         "easycorp/easyadmin-bundle": "^4.9",
         "nelmio/cors-bundle": "^2.4",
         "phpdocumentor/reflection-docblock": "^5.3",

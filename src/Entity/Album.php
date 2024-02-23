@@ -9,23 +9,24 @@ use App\Repository\AlbumRepository;
 use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use ApiPlatform\Doctrine\Odm\Filter\SearchFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
 #[ApiResource(
-    normalizationContext: ['groups' => ['album:read']],
-    denormalizationContext: ['groups' => ['album:write']],
+     normalizationContext: ['groups' => ['album:read']],
+     denormalizationContext: ['groups' => ['album:write']],
 )]
-#[ApiFilter(
-    SearchFilter::class, properties: ['id' => 'exact', 'title' => 'exact', 'description' => 'partial', 'genre.label' => 'exact']
-)]
+  #[ApiFilter(
+      SearchFilter::class, properties: ['id' => 'exact', 'title' => 'exact','genre.label' => 'exact']
+ )]
 class Album
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("album:read")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -50,6 +51,7 @@ class Album
 
     #[ORM\ManyToOne(inversedBy: 'albums')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups("album:read")]
     private ?Genre $genre = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'album')]
